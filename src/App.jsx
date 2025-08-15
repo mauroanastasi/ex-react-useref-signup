@@ -8,9 +8,13 @@ function App() {
   const [num, setNum] = useState("")
   const [des, setDes] = useState("")
 
-  function submitxxx(e) {
+  function submit(e) {
     e.preventDefault();
-    console.log(`
+    if (nome.length < 1 || user.length < 1 || pass.length < 1 || spec.length < 1 || num.length < 1 || des.length < 1) {
+      console.log(`tutti i campi devono essere compilati`)
+      return
+
+    } console.log(`
       nome:${nome};
       utente:${user};
       password:${pass};
@@ -22,7 +26,7 @@ function App() {
 
   return (
     <>
-      <form action="" onSubmit={submitxxx}>
+      <form action="" onSubmit={submit}>
 
         <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder='Nome completo' />
 
@@ -44,7 +48,7 @@ function App() {
 
         </textarea>
 
-        <button type='submitxxx' > Invia </button>
+        <button type='submit' > Invia </button>
       </form>
     </>
   )
