@@ -10,12 +10,16 @@ function App() {
 
   function submit(e) {
     e.preventDefault();
-    if (nome.length < 1 || user.length < 1 || pass.length < 1 || spec.length < 1 || num.length < 1 || des.length < 1) {
+    if (nome.length < 1 || user.length < 1 || pass.length < 1 || num.length < 1 || des.length < 1) {
       console.log(`tutti i campi devono essere compilati`)
       return
 
     } else if (num <= 0 || isNaN(num)) {
       console.log(`non è stato inserito un numero valido o positivo`)
+      return
+
+    } else if (spec === "") {
+      console.log(`specializzazione non selezionata`)
       return
 
     } console.log(`
