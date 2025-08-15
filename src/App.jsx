@@ -14,6 +14,10 @@ function App() {
       console.log(`tutti i campi devono essere compilati`)
       return
 
+    } else if (num <= 0 || isNaN(num)) {
+      console.log(`non è stato inserito un numero valido o positivo`)
+      return
+
     } console.log(`
       nome:${nome};
       utente:${user};
@@ -22,6 +26,7 @@ function App() {
       esperienza:${num};
       descrizione:${des}
     `)
+
   }
 
   return (
@@ -41,7 +46,7 @@ function App() {
         </select>
 
         <label htmlFor="quantity">Anni di esperienza:</label>
-        <input value={num} onChange={(e) => setNum(e.target.value)} type="number" id="quantity" name="quantity" min="1" max="60" />
+        <input value={num} onChange={(e) => setNum(e.target.value)} type="number" id="quantity" name="quantity" />
 
         <label htmlFor="descr">Descrizione sullo sviluppatore</label>
         <textarea value={des} onChange={(e) => setDes(e.target.value)} id="descr" name="descr" rows="5" cols="100">
