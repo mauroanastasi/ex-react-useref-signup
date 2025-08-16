@@ -1,5 +1,11 @@
 import { useState } from 'react'
 
+
+const letters = "abcdefghijklmnopqrstuvwxyz";
+const numbers = "0123456789";
+const symbols = "!@#$%^&*()-_=+[]{}|;:'\\,.<>?/`~";
+
+
 function App() {
   const [nome, setNome] = useState("")
   const [user, setUser] = useState("")
@@ -7,6 +13,8 @@ function App() {
   const [spec, setSpec] = useState("")
   const [num, setNum] = useState("")
   const [des, setDes] = useState("")
+
+  const nomeNonValido = [...nome].some(n => symbols.includes(n))
 
   function submit(e) {
     e.preventDefault();
@@ -29,7 +37,7 @@ function App() {
       specializzazione:${spec};
       esperienza:${num};
       descrizione:${des}
-    `)
+      `)
 
   }
 
@@ -37,6 +45,9 @@ function App() {
     <>
       <form action="" onSubmit={submit}>
 
+        <strong style={{ color: nome.length < 6 || nomeNonValido ? "red" : "green" }}>
+          {nome.length < 6 ? "Immetti 6 caratteri alfanumerici, no simboli" : "Nome valido"}
+        </strong>
         <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder='Nome completo' />
 
         <input type="text" value={user} onChange={(e) => setUser(e.target.value)} placeholder='Username' />
