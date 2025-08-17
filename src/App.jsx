@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 
 const letters = "abcdefghijklmnopqrstuvwxyz";
@@ -8,10 +8,10 @@ const symbols = "!@#$%^&*()-_=+[]{}|;:'\\,.<>?/`~";
 
 function App() {
   const [nome, setNome] = useState("")
-  const [user, setUser] = useState("")
+  const userRef = useRef()
   const [pass, setPass] = useState("")
-  const [spec, setSpec] = useState("")
-  const [num, setNum] = useState("")
+  const specRef = useRef()
+  const numRef = useRef()
   const [des, setDes] = useState("")
 
   let nomeNonValido = [...nome].some(n => symbols.includes(n))
@@ -22,24 +22,24 @@ function App() {
 
   function submit(e) {
     e.preventDefault();
-    if (nome.length < 1 || user.length < 1 || pass.length < 1 || num.length < 1 || des.length < 1) {
+    if (nome.length < 1 || userRef.current.value.length < 1 || pass.length < 1 || numRef.current.value.length < 1 || des.length < 1) {
       console.log(`tutti i campi devono essere compilati`)
       return
 
-    } else if (num <= 0 || isNaN(num)) {
+    } else if (numRef.current.value <= 0 || isNaN(numRef.current.value)) {
       console.log(`non è stato inserito un numero valido o positivo`)
       return
 
-    } else if (spec === "") {
+    } else if (specRef.current.value === "") {
       console.log(`specializzazione non selezionata`)
       return
 
     } console.log(`
       nome:${nome};
-      utente:${user};
+      utente:${userRef.current.value};
       password:${pass};
-      specializzazione:${spec};
-      esperienza:${num};
+      specializzazione:${specRef.current.value};
+      esperienza:${numRef.current.value};
       descrizione:${des}
       `)
 
@@ -54,21 +54,21 @@ function App() {
         </strong>
         <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder='Nome completo' />
 
-        <input type="text" value={user} onChange={(e) => setUser(e.target.value)} placeholder='Username' />
+        <input type="text" ref={userRef} placeholder='Username' />
 
         <strong style={{ color: pass.length < 8 || !hasSymbol || !hasNumber || !hasLetter ? "red" : "green" }}>
           {pass.length < 8 || !hasSymbol || !hasNumber || !hasLetter ? "Immetti almeno 8 caratteri, 1 lettera, 1 numero e 1 simbolo" : "Password valida"}
         </strong>
         <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} placeholder='Password' />
 
-        <select value={spec} onChange={(e) => setSpec(e.target.value)} name="Specializzazione" id="sp">
+        <select ref={specRef} name="Specializzazione" id="sp">
           <option value="Full Stack">Full Stack</option>
           <option value="Frontend">Frontend</option>
           <option value="Backend">Backend</option>
         </select>
 
         <label htmlFor="quantity">Anni di esperienza:</label>
-        <input value={num} onChange={(e) => setNum(e.target.value)} type="number" id="quantity" name="quantity" />
+        <input ref={numRef} type="number" id="quantity" name="quantity" />
 
         <label htmlFor="descr">Descrizione sullo sviluppatore</label>
         <textarea value={des} onChange={(e) => setDes(e.target.value)} id="descr" name="descr" rows="5" cols="100">
