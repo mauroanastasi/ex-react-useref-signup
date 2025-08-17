@@ -14,7 +14,11 @@ function App() {
   const [num, setNum] = useState("")
   const [des, setDes] = useState("")
 
-  const nomeNonValido = [...nome].some(n => symbols.includes(n))
+  let nomeNonValido = [...nome].some(n => symbols.includes(n))
+
+  const hasSymbol = [...pass].some(p => symbols.includes(p));
+  const hasNumber = [...pass].some(p => numbers.includes(p));
+  const hasLetter = [...pass].some(p => letters.includes(p));
 
   function submit(e) {
     e.preventDefault();
@@ -46,12 +50,15 @@ function App() {
       <form action="" onSubmit={submit}>
 
         <strong style={{ color: nome.length < 6 || nomeNonValido ? "red" : "green" }}>
-          {nome.length < 6 ? "Immetti 6 caratteri alfanumerici, no simboli" : "Nome valido"}
+          {nome.length < 6 || nomeNonValido ? "Immetti 6 caratteri alfanumerici, no simboli" : "Nome valido"}
         </strong>
         <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder='Nome completo' />
 
         <input type="text" value={user} onChange={(e) => setUser(e.target.value)} placeholder='Username' />
 
+        <strong style={{ color: pass.length < 8 || !hasSymbol || !hasNumber || !hasLetter ? "red" : "green" }}>
+          {pass.length < 8 || !hasSymbol || !hasNumber || !hasLetter ? "Immetti almeno 8 caratteri, 1 lettera, 1 numero e 1 simbolo" : "Password valida"}
+        </strong>
         <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} placeholder='Password' />
 
         <select value={spec} onChange={(e) => setSpec(e.target.value)} name="Specializzazione" id="sp">
